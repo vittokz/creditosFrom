@@ -1,0 +1,96 @@
+<div class="h-100 bg-sunny-morning bg-animation">
+  <div class="d-flex h-100 justify-content-center align-items-center">
+    <div class="mx-auto app-login-box col-md-8">
+      <div class="app-logo-inverse mx-auto mb-3"></div>
+      <div class="modal-dialog w-100 mx-auto">
+        <form [formGroup]="formLogin">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="h5 modal-title text-center">
+                <h4 class="mt-2">
+                  <div>Bienvenido</div>
+                  <span>Inicie sesión con su cuenta de usuario</span>
+                </h4>
+              </div>
+              <div
+                id="exampleInputGroup1"
+                role="group"
+                aria-describedby="exampleInputGroup1__BV_description_"
+                class="form-group"
+              >
+                <div>
+                  <input
+                    id="exampleInput1"
+                    type="number"
+                    placeholder="Ingrese identificación..."
+                    required="required"
+                    aria-required="true"
+                    class="form-control"
+                    aria-describedby="exampleInputGroup1__BV_description_"
+                    formControlName="identidad"
+                  />
+                  <small
+                    tabindex="-1"
+                    id="exampleInputGroup1__BV_description_"
+                    class="form-text text-muted"
+                  >
+                  </small>
+                </div>
+              </div>
+              <div id="exampleInputGroup2" role="group" class="form-group">
+                <div>
+                  <input
+                    id="exampleInput2"
+                    type="password"
+                    placeholder="Ingrese password..."
+                    required="required"
+                    aria-required="true"
+                    class="form-control"
+                    formControlName="password"
+                  />
+                </div>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  id="exampleCheck"
+                  type="checkbox"
+                  name="check"
+                  autocomplete="off"
+                  class="custom-control-input"
+                  value="true"
+                />
+              </div>
+              <div class="divider"></div>
+              <h6 class="mb-0">
+                No tiene una cuenta?
+                <a routerLink="/pages/register-boxed" class="text-primary"
+                  >Crear cuenta</a
+                >
+              </h6>
+            </div>
+            <div class="modal-footer clearfix">
+              <div class="float-left">
+                <a
+                  routerLink="/pages/forgot-password-boxed"
+                  class="btn-lg btn btn-link"
+                  >Recordar Password</a
+                >
+              </div>
+              <div class="float-right">
+                <button
+                  (click)="validarLogin()"
+                  [disabled]="!formLogin.valid"
+                  type="button"
+                  class="btn btn-primary btn-lg"
+                >
+                  Ingresar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="text-center text-white opacity-8 mt-3">Copyright © 2021</div>
+    </div>
+  </div>
+</div>

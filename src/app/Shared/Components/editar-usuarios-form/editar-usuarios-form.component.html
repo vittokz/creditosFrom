@@ -1,0 +1,106 @@
+<app-page-title
+  [heading]="heading"
+  [subheading]="subheading"
+  [icon]="icon"
+></app-page-title>
+<div class="main-card mb-3 card">
+  <div class="card-body">
+    <h5 class="card-title">Datos personales</h5>
+    <form *ngFor="let dato of infoUsuario">
+      <div class="form-row">
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="examplePassword11">Identificación</label
+            ><input
+              type="text"
+              class="form-control"
+              value="{{ dato.identidad }}"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="exampleEmail11">Nombres</label
+            ><input
+              type="text"
+              class="form-control"
+              value="{{ dato.nombre }}"
+              placeholder=""
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="exampleEmail11">Apellidos</label
+            ><input
+              type="text"
+              class="form-control"
+              value="{{ dato.apellido }}"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="exampleEmail11">Genero</label>
+            <select class="form-control">
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-3">
+          <label for="exampleAddress">Dirección</label>
+          <input
+            type="text"
+            class="form-control"
+            value="{{ dato.direccion }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="exampleAddress">Teléfono</label>
+          <input
+            type="number"
+            class="form-control"
+            value="{{ dato.telefono }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="exampleAddress">Celular</label>
+          <input
+            type="number"
+            class="form-control"
+            value="{{ dato.celular }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="exampleAddress">Emáil</label>
+          <input type="email" class="form-control" value="{{ dato.email }}" />
+        </div>
+      </div>
+
+      <br />
+      <div class="form-row">
+        <div class="col-md-2">
+          <div class="position-relative form-group">
+            <label for="exampleCity">Estado</label>
+            <select class="form-control">
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button
+        (click)="submit()"
+        class="mt-2 btn btn-primary"
+        ngbTooltip="Editar datos"
+      >
+        Editar datos
+      </button>
+    </form>
+  </div>
+</div>

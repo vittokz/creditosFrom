@@ -1,0 +1,99 @@
+<div class="content">
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h4 class="mb-0">{{ titulo }}</h4>
+            </div>
+            <div class="col-4 text-right">
+              <a
+                routerLink="/usuarios/AddUsuario"
+                class="btn btn-sm btn-success"
+                >Agregar usuario</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <dx-data-grid
+          id="gridContainer"
+          [showColumnLines]="false"
+          [showRowLines]="true"
+          [hoverStateEnabled]="true"
+          [rowAlternationEnabled]="true"
+          [columnAutoWidth]="true"
+          [dataSource]="lista"
+          noDataText="No se encontraron Datos"
+          [showBorders]="true"
+        >
+          <dxo-search-panel
+            [visible]="true"
+            [width]="440"
+            placeholder="Buscar..."
+          ></dxo-search-panel>
+          <dxo-paging [pageSize]="10"></dxo-paging>
+          <dxo-pager
+            [visible]="true"
+            [showInfo]="true"
+            infoText="Pagina {0} de {1} ({2} datos)"
+            [showPageSizeSelector]="true"
+          >
+          </dxo-pager>
+
+          <dxi-column
+            dataField="identidad"
+            alignment="center"
+            caption="Identidad"
+          ></dxi-column>
+          <dxi-column
+            dataField="nombre"
+            alignment="center"
+            caption="Nombre"
+          ></dxi-column>
+          <dxi-column
+            dataField="apellido"
+            alignment="center"
+            caption="Apellido"
+          ></dxi-column>
+          <dxi-column
+            dataField="email"
+            alignment="center"
+            caption="Emáil"
+          ></dxi-column>
+          <dxi-column
+            dataField="celular"
+            alignment="center"
+            caption="Movil"
+          ></dxi-column>
+          <dxi-column caption="Acciones" cellTemplate="acciones"></dxi-column>
+
+          <div *dxTemplate="let d of 'acciones'">
+            <button
+              routerLink="/compartido/editar/{{ d.data.identidad }}"
+              class="btn btn-link"
+              type="button"
+              placement="left"
+              ngbTooltip="Ver información"
+              container="body"
+            >
+              <i class="pe-7s-look"> </i>
+            </button>
+
+            <button
+              class="btn btn-link"
+              type="button"
+              placement="right"
+              ngbTooltip="Editar Información"
+              container="body"
+              routerLink="/usuarios/EditarUsuario/{{ d.data.identidad }}"
+            >
+              <i class="pe-7s-refresh"> </i>
+            </button>
+          </div>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

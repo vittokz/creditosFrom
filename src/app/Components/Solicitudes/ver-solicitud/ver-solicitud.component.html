@@ -1,0 +1,324 @@
+<app-page-title
+  [heading]="heading"
+  [subheading]="subheading"
+  [icon]="icon"
+></app-page-title>
+
+<div class="row" *ngFor="let dato of solicitud">
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img
+                  width="42"
+                  class="rounded-circle"
+                  src="./assets/images/avatars/1.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.nombreSolicitante | uppercase }}
+                  {{ dato.apellidoSolicitante | uppercase }}
+                </div>
+                <div class="widget-subheading">Nombres del solicitante</div>
+              </div>
+              <div class="widget-content-right">
+                <div role="group" class="btn-group-sm btn-group">
+                  <button type="button" class="btn-shadow btn btn-primary">
+                    Hire
+                  </button>
+                  <button type="button" class="btn-shadow btn btn-primary">
+                    Fire
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.ccSolicitante | uppercase }}
+                </div>
+                <div class="widget-subheading">Documento de identificación</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="badge badge-info">
+                  {{ dato.tipoDoc | uppercase }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">{{ dato.email }}</div>
+                <div class="widget-subheading">Emáil</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">{{ dato.celular }}</div>
+                <div class="widget-subheading">Número celular</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.municipioSolicitante }}
+                </div>
+                <div class="widget-subheading">
+                  Municipio ubicación del solicitante
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  Estado de la solicitud de crédito
+                </div>
+              </div>
+              <div class="widget-content-right">
+                <div class="badge badge-info">
+                  {{ dato.estado | uppercase }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <div class="card-header">Datos del crédito</div>
+      <ul class="todo-list-wrapper list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.tipoCredito }}
+                </div>
+                <div class="widget-subheading"><i>Tipo de crédito</i></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.valorCredito | currency }}
+                </div>
+                <div class="widget-subheading"><i>Monto del crédito</i></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-focus"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">{{ dato.plazo }} meses</div>
+                <div class="widget-subheading">
+                  <div>PLazo del crédito</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-primary"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left flex2">
+                <div class="widget-heading">{{ dato.interes }} %</div>
+                <div class="widget-subheading">Interes mensual</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-info"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.valorCuota | currency }}
+                </div>
+                <div class="widget-subheading">Valor mensual de la cuota</div>
+              </div>
+              <div class="widget-content-right widget-content-actions">
+                <button class="border-0 btn-transition btn btn-outline-success">
+                  <i class="fa fa-check"></i>
+                </button>
+                <button class="border-0 btn-transition btn btn-outline-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <div class="card-header">Datos del predio</div>
+      <ul class="todo-list-wrapper list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.numRegistroPredio }}
+                </div>
+                <div class="widget-subheading">
+                  <i>Número de registro del predio</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.certificadoLyT }}
+                </div>
+                <div class="widget-subheading">
+                  <i>Certificado de liberta y tradición</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-focus"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">{{ dato.municipioLyT }}</div>
+                <div class="widget-subheading">
+                  <div>Municipio ubicación del predio</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <form [formGroup]="formSolicitud">
+            <div class="todo-indicator bg-focus"></div>
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-subheading">
+                    <div>Seleccione estado de la solucitud</div>
+                  </div>
+                  <div class="widget-heading">
+                    <select
+                      class="form-control"
+                      formControlName="estadoSolicitud"
+                    >
+                      <option value="1">
+                        Estudio del Certificado de Libertad y Tradición
+                      </option>
+                      <option value="2">Estudio Peritaje</option>
+                      <option value="3">En proceso de Escritura</option>
+                      <option value="4">En proceso de Registro</option>
+                      <option value="5">Registrado</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">
+                    <textarea
+                      formControlName="descripcion"
+                      placeholder="Agrege comentario segun estado"
+                      rows="2"
+                      cols="40"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </li>
+      </ul>
+      <div class="d-block text-right card-footer">
+        <button class="mr-2 btn btn-link btn-sm">Cancelar</button>
+        <button
+          (click)="submit()"
+          [disabled]="!formSolicitud.valid"
+          class="btn btn-success btn-lg"
+        >
+          Registrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Tipo Estado</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Fecha Registro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let info of listaEstadosSolicitud">
+          <td scope="row">
+            <span *ngIf="info.tipoEstado == '1'"
+              >Estudio del Certificado de Libertad y Tradición</span
+            >
+            <span *ngIf="info.tipoEstado == '2'">Estudio Peritaje</span>
+            <span *ngIf="info.tipoEstado == '3'">En proceso de Registro</span>
+            <span *ngIf="info.tipoEstado == '4'">En proceso de Registro</span>
+            <span *ngIf="info.tipoEstado == '5'">Registrado</span>
+          </td>
+          <td>{{ info.descripcion }}</td>
+          <td>{{ info.fechaRegistro }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
