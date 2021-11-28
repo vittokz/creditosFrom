@@ -5,6 +5,8 @@ import { AuthService } from "src/app/Shared/Services/auth.service";
 import { MsnRespuestasService } from "src/app/Shared/Services/msn-respuestas.service";
 import { UsuariosService } from "src/app/Shared/Services/usuarios.service";
 import * as respuestasMsn from "../../Shared/Enum/respuestas-msn";
+import { timer } from "rxjs";
+import { SwPush } from "@angular/service-worker";
 @Component({
   selector: "app-perfil",
   templateUrl: "./perfil.component.html",
@@ -16,11 +18,16 @@ export class PerfilComponent implements OnInit {
   icon = "pe-7s-display1 icon-gradient bg-premium-dark";
   datosUsuario: Usuario[];
   formPerfil: FormGroup;
+  respuesta: any;
+  readonly VAPID_PUBLIC_KEY =
+    "BMFNTrvyY2JMuZ-_0HowqQvfDwrWAK_n85sL5Ru3kVqeaCTq0U7dwyi3xUtWtPwptMmu0E86IWGljXov5nE4UMw";
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private respuestas: MsnRespuestasService,
-    private usuarioService: UsuariosService
+    private usuarioService: UsuariosService,
+    private swPush: SwPush
   ) {
     this.getUsuarioLogueado();
   }
@@ -47,6 +54,14 @@ export class PerfilComponent implements OnInit {
   }
 
   submit() {
+    this.swPush
+      .requestSubscription({ serverPublicKey: this.VAPID_PUBLIC_KEY })
+      .then((respuesta) => {
+        this.respuesta = respuesta;
+      })
+      .catch((err) => {
+        this.respuesta = err;
+      });
     this.datosUsuario[0].nombre = this.formPerfil.get("nombre").value;
     this.datosUsuario[0].apellido = this.formPerfil.get("apellido").value;
     this.datosUsuario[0].direccion = this.formPerfil.get("direccion").value;

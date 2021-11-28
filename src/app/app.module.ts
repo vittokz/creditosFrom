@@ -117,13 +117,21 @@ import { ListarUsuariosEmpresaComponent } from "./Components/UsuariosEmpresa/lis
 import { CrearUsuariosEmpresaComponent } from "./Components/UsuariosEmpresa/crear-usuarios-empresa/crear-usuarios-empresa.component";
 import { InterceptorService } from "./Shared/Services/interceptor.service";
 import { InputComponent } from "./Shared/Components/input/input.component";
-import { ListarUsuariosFormComponent } from './Shared/Components/listar-usuarios-form/listar-usuarios-form.component';
-import { EditarUsuariosFormComponent } from './Shared/Components/editar-usuarios-form/editar-usuarios-form.component';
-import { EditarUsuariosCompartidoComponent } from './Shared/Components/editar-usuarios-compartido/editar-usuarios-compartido.component';
-import { VerSolicitudComponent } from './Components/Solicitudes/ver-solicitud/ver-solicitud.component';
-import { CrearCreditoComponent } from './Components/Creditos/crear-credito/crear-credito.component';
-import { ListarCreditoComponent } from './Components/Creditos/listar-credito/listar-credito.component';
-import { ListarSolicitudClientesComponent } from './Components/Solicitudes/listar-solicitud-clientes/listar-solicitud-clientes.component';
+import { ListarUsuariosFormComponent } from "./Shared/Components/listar-usuarios-form/listar-usuarios-form.component";
+import { EditarUsuariosFormComponent } from "./Shared/Components/editar-usuarios-form/editar-usuarios-form.component";
+import { EditarUsuariosCompartidoComponent } from "./Shared/Components/editar-usuarios-compartido/editar-usuarios-compartido.component";
+import { VerSolicitudComponent } from "./Components/Solicitudes/ver-solicitud/ver-solicitud.component";
+import { CrearCreditoComponent } from "./Components/Creditos/crear-credito/crear-credito.component";
+import { ListarCreditoComponent } from "./Components/Creditos/listar-credito/listar-credito.component";
+import { ListarSolicitudClientesComponent } from "./Components/Solicitudes/listar-solicitud-clientes/listar-solicitud-clientes.component";
+import { ListarCreditosClientesComponent } from "./Components/Creditos/listar-creditos-clientes/listar-creditos-clientes.component";
+import { InversionesPersonaComponent } from "./Components/Inversiones/inversiones-persona/inversiones-persona.component";
+import { InversionesAdministradorComponent } from "./Components/Inversiones/inversiones-administrador/inversiones-administrador.component";
+import { InversionDetalleComponent } from "./Components/Inversiones/inversion-detalle/inversion-detalle.component";
+import { DetalleCreditoComponent } from "./Components/Creditos/proceso-credito/detalle-credito/detalle-credito.component";
+import { InversionesAdmministradorCompletasComponent } from "./Components/Inversiones/inversiones-admministrador-completas/inversiones-admministrador-completas.component";
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from "../environments/environment";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -231,7 +239,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     VerSolicitudComponent,
     CrearCreditoComponent,
     ListarCreditoComponent,
-    ListarSolicitudClientesComponent
+    ListarSolicitudClientesComponent,
+    ListarCreditosClientesComponent,
+    InversionesPersonaComponent,
+    InversionesAdministradorComponent,
+    InversionDetalleComponent,
+    DetalleCreditoComponent,
+    InversionesAdmministradorCompletasComponent,
   ],
   imports: [
     BrowserModule,
@@ -254,6 +268,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // Charts
 
     ChartsModule,
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: "registerWhenStable:30000",
+    }),
   ],
   providers: [
     {

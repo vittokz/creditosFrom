@@ -67,7 +67,10 @@
                 <ng-template ngbPanelContent>
                   <div class="vsm-dropdown">
                     <div class="vsm-list">
-                      <div class="vsm-item">
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Administrador'"
+                      >
                         <a
                           routerLinkActive="active-item"
                           routerLink="inversionistas/crear"
@@ -75,7 +78,10 @@
                           ><span class="vsm-title">Crear</span></a
                         >
                       </div>
-                      <div class="vsm-item">
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Administrador'"
+                      >
                         <a
                           routerLinkActive="active-item"
                           routerLink="inversionistas/listar"
@@ -87,6 +93,69 @@
                   </div>
                 </ng-template>
               </ngb-panel>
+
+              <ngb-panel id="pagesMenu1" *ngIf="tipoUsuario != 'Cliente'">
+                <ng-template ngbPanelHeader>
+                  <button ngbPanelToggle class="vsm-link">
+                    <i class="vsm-icon pe-7s-cash"></i>
+                    <span class="vsm-title">Inversiones</span>
+                    <i class="vsm-arrow"></i>
+                  </button>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="vsm-dropdown">
+                    <div class="vsm-list">
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Inversionista'"
+                      >
+                        <a
+                          routerLinkActive="active-item"
+                          routerLink="inversiones/listar-persona"
+                          class="vsm-link"
+                          ><span class="vsm-title">Listar Activas</span></a
+                        >
+                      </div>
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Inversionista'"
+                      >
+                        <a
+                          routerLinkActive="active-item"
+                          routerLink="inversiones/listar-persona2"
+                          class="vsm-link"
+                          ><span class="vsm-title">Listar Inactivas</span></a
+                        >
+                      </div>
+
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Administrador'"
+                      >
+                        <a
+                          routerLinkActive="active-item"
+                          routerLink="inversiones/listar-administrador"
+                          class="vsm-link"
+                          ><span class="vsm-title">Listar Pendientes</span></a
+                        >
+                      </div>
+
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Administrador'"
+                      >
+                        <a
+                          routerLinkActive="active-item"
+                          routerLink="inversiones/listar-administrador-completas"
+                          class="vsm-link"
+                          ><span class="vsm-title">Listar Completas</span></a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+
               <ngb-panel *ngIf="tipoUsuario == 'Administrador'">
                 <ng-template ngbPanelHeader>
                   <div class="vsm-header">Menú Clientes</div>
@@ -128,7 +197,12 @@
                   </div>
                 </ng-template>
               </ngb-panel>
-              <ngb-panel id="componentsMenu">
+              <ngb-panel
+                id="componentsMenu"
+                *ngIf="
+                  tipoUsuario == 'Administrador' || tipoUsuario == 'Cliente'
+                "
+              >
                 <ng-template ngbPanelHeader>
                   <button ngbPanelToggle class="vsm-link">
                     <i class="vsm-icon pe-7s-server"></i>
@@ -165,7 +239,7 @@
                         >
                       </div>
 
-                      <div class="vsm-item">
+                      <div class="vsm-item" *ngIf="tipoUsuario == 'Cliente'">
                         <a
                           routerLinkActive="active-item"
                           routerLink="solicitudes/listar-solicitudes-clientes"
@@ -179,11 +253,13 @@
                 </ng-template>
               </ngb-panel>
 
-              <ngb-panel
-                id="componentsMenu2"
-                *ngIf="tipoUsuario == 'Administrador'"
-              >
-                <ng-template ngbPanelHeader>
+              <ngb-panel id="componentsMenu2">
+                <ng-template
+                  ngbPanelHeader
+                  *ngIf="
+                    tipoUsuario == 'Administrador' || tipoUsuario == 'Cliente'
+                  "
+                >
                   <button ngbPanelToggle class="vsm-link">
                     <i class="vsm-icon pe-7s-cash"></i>
                     <span class="vsm-title">Créditos </span>
@@ -197,7 +273,10 @@
                         <a routerLinkActive="active-item" routerLink="/components/tabs" class="vsm-link"><span
                           class="vsm-title">Tabs</span></a>
                       </div> -->
-                      <div class="vsm-item">
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Administrador'"
+                      >
                         <a
                           routerLinkActive="active-item"
                           routerLink="creditos/crear"
@@ -206,10 +285,22 @@
                           <span class="vsm-title">Crear</span></a
                         >
                       </div>
-                      <div class="vsm-item">
+                      <div
+                        class="vsm-item"
+                        *ngIf="tipoUsuario == 'Administrador'"
+                      >
                         <a
                           routerLinkActive="active-item"
                           routerLink="creditos/listar"
+                          class="vsm-link"
+                        >
+                          <span class="vsm-title">Listar</span></a
+                        >
+                      </div>
+                      <div class="vsm-item" *ngIf="tipoUsuario == 'Cliente'">
+                        <a
+                          routerLinkActive="active-item"
+                          routerLink="creditos/listar-creditos-clientes"
                           class="vsm-link"
                         >
                           <span class="vsm-title">Listar</span></a
@@ -229,7 +320,7 @@
                 <ng-template ngbPanelHeader>
                   <button ngbPanelToggle class="vsm-link">
                     <i class="vsm-icon pe-7s-user-female"></i>
-                    <span class="vsm-title">Usuarios</span>
+                    <span class="vsm-title">Usuarios página</span>
                     <i class="vsm-arrow"></i>
                   </button>
                 </ng-template>
@@ -239,7 +330,7 @@
                       <div class="vsm-item">
                         <a
                           routerLinkActive="active-item"
-                          routerLink="/widgets/chart-boxes-3"
+                          routerLink="usuariosApp/listar-usuarios-app"
                           class="vsm-link"
                         >
                           <span class="vsm-title">Listar</span></a
@@ -249,6 +340,7 @@
                   </div>
                 </ng-template>
               </ngb-panel>
+
               <ngb-panel
                 id="pagesMenu33"
                 *ngIf="tipoUsuario == 'Administrador'"
@@ -285,6 +377,41 @@
                   </div>
                 </ng-template>
               </ngb-panel>
+
+              <ngb-panel *ngIf="tipoUsuario == 'Administrador'">
+                <ng-template ngbPanelHeader>
+                  <div class="vsm-header">Estadisticas</div>
+                </ng-template>
+              </ngb-panel>
+
+              <ngb-panel
+                id="pagesMenu34"
+                *ngIf="tipoUsuario == 'Administrador'"
+              >
+                <ng-template ngbPanelHeader>
+                  <button ngbPanelToggle class="vsm-link">
+                    <i class="vsm-icon pe-7s-graph3"></i>
+                    <span class="vsm-title">Estadistica 1</span>
+                    <i class="vsm-arrow"></i>
+                  </button>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="vsm-dropdown">
+                    <div class="vsm-list">
+                      <div class="vsm-item">
+                        <a
+                          routerLinkActive="active-item"
+                          routerLink="usuariosEmpresa/listar"
+                          class="vsm-link"
+                        >
+                          <span class="vsm-title">Listar</span></a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+
               <!-- <ngb-panel>
                 <ng-template ngbPanelHeader>
                   <div class="vsm-header">Usuarios Empresa</div>

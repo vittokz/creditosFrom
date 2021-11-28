@@ -1,1 +1,121 @@
-<p>crear-solicitud works!</p>
+<app-page-title
+  [heading]="heading"
+  [subheading]="subheading"
+  [icon]="icon"
+></app-page-title>
+<div class="main-card mb-3 card">
+  <div class="card-body">
+    <h5 class="card-title">Diligenciar solicitud de crédito</h5>
+    <form [formGroup]="formulario">
+      <div class="form-row">
+        <div class="col-md-2">
+          <div class="position-relative form-group">
+            <label for="examplePassword11">Tipo de interés</label
+            ><select formControlName="tipoInteres" class="form-control">
+              <option value="Comun">Común</option>
+              <option value="Compuesto">Compuesto</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="position-relative form-group">
+            <label for="examplePassword11">Valor crédito</label
+            ><input
+              formControlName="valorCredito"
+              type="number"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="exampleEmail11">Interes</label
+            ><select formControlName="interes" class="form-control">
+              <option value="3">3%</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="position-relative form-group">
+            <label for="exampleEmail11">Tipo Crédito</label
+            ><select formControlName="tipoCredito" class="form-control">
+              <option value="Hipotecario">Hipotecario</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label for="exampleAddress">Plazo(Meses)</label>
+          <select
+            formControlName="plazo"
+            class="form-control"
+            (change)="calcularCuota()"
+          >
+            <option value="8">8</option>
+            <option value="12">12</option>
+            <option value="24">24</option>
+            <option value="36">36</option>
+            <option value="48">48</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="exampleEmail11">Valor cuota</label
+            ><input
+              disabled
+              formControlName="valorCuota"
+              type="number"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label for="exampleAddress">N° registro del predio</label>
+          <input formControlName="numPredio" type="text" class="form-control" />
+        </div>
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="exampleState">Departamento</label
+            ><select
+              formControlName="departamentos"
+              class="form-control"
+              (change)="selecDepartamento($event)"
+            >
+              <option
+                value="{{ dep.id }}"
+                *ngFor="let dep of listDepartamentos"
+              >
+                {{ dep.nombre }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="position-relative form-group">
+            <label for="exampleZip">Municipio</label
+            ><select formControlName="municipios" class="form-control">
+              <option
+                value="{{ mun.nombre }}"
+                *ngFor="let mun of listMunicipios"
+              >
+                {{ mun.nombre }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button
+        [disabled]="!formulario.valid"
+        class="mt-2 btn btn-primary"
+        ngbTooltip="Crear Solicitud"
+        (click)="submit()"
+      >
+        Crear
+      </button>
+    </form>
+  </div>
+</div>

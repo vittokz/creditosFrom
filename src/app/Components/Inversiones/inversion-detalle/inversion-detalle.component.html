@@ -1,0 +1,159 @@
+<app-page-title
+  [heading]="heading"
+  [subheading]="subheading"
+  [icon]="icon"
+></app-page-title>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img
+                  width="42"
+                  class="rounded-circle"
+                  src="./assets/images/avatars/1.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">Información de la solicitud</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">N° {{ idSolicitud }}</div>
+                <div class="widget-subheading">Número de solicitud</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ monto | currency }}
+                </div>
+                <div class="widget-subheading">Monto solicitado</div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img
+                  width="42"
+                  class="rounded-circle"
+                  src="./assets/images/avatars/1.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">Información de inversiones</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div
+                  class="widget-heading"
+                  *ngFor="let dato of listaInversiones"
+                >
+                  {{ dato.valorInvertido | currency | json }} -
+                  {{ dato.fechaInversion | json }} -
+                  {{ dato.estado | json }}
+                </div>
+                <div class="widget-subheading">Valor invertido</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ monto - sumaInversiones | currency }}
+                </div>
+                <div class="widget-subheading">
+                  <span style="color: red; font-size: 16px; font-weight: bold"
+                    >Monto pendiente por invertir</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img
+                  width="42"
+                  class="rounded-circle"
+                  src="./assets/images/avatars/1.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">Desea Invertir ?</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <form
+                  [formGroup]="formInvertir"
+                  *ngIf="monto - sumaInversiones > 0"
+                >
+                  <div class="widget-subheading">Monto</div>
+                  <input
+                    formControlName="monto"
+                    type="number"
+                    class="form-control"
+                  />
+                  <br />
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="submit()"
+                    ngbTooltip="Se registrarà el monto ingresado a la inversiòn"
+                  >
+                    Invertir
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^11.2.2",
     "@angular/platform-browser-dynamic": "^11.2.2",
     "@angular/router": "^11.2.2",
+    "@angular/service-worker": "^11.2.2",
     "@fortawesome/angular-fontawesome": "^0.8.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
@@ -58,6 +59,10 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "cross-env": "^5.0.5",
+    "file-saver": "^2.0.2",
+    "html-docx-js": "^0.3.1",
+    "increase-memory-limit": "^1.0.3",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.1.1",
@@ -68,8 +73,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.7",
-    "increase-memory-limit": "^1.0.3",
-    "cross-env": "^5.0.5"
+    "typescript": "~4.0.7"
   }
 }

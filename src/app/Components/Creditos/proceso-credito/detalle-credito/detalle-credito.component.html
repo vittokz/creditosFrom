@@ -1,0 +1,592 @@
+<app-page-title
+  [heading]="heading"
+  [subheading]="subheading"
+  [icon]="icon"
+></app-page-title>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <button
+        (click)="amortizacionButton()"
+        type="button"
+        class="btn btn-primary"
+      >
+        Tabla de Amortizacións
+      </button>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <button (click)="pagosButton()" type="button" class="btn btn-primary">
+        Pagos realizados
+      </button>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <button
+        (click)="pagosDetalleButton()"
+        type="button"
+        class="btn btn-primary"
+      >
+        Detalle de pagos
+      </button>
+    </div>
+  </div>
+</div>
+
+<hr />
+<!-- DIV LISTADO DE PAGOS-->
+<div class="row" *ngIf="pagos">
+  <div class="col-lg-12">
+    <div class="card shadow">
+      <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h4 class="mb-0" style="color: GREEN">
+              Listado de pagos realizados
+            </h4>
+          </div>
+        </div>
+      </div>
+
+      <dx-data-grid
+        id="gridContainer"
+        [showColumnLines]="false"
+        [showRowLines]="true"
+        [hoverStateEnabled]="true"
+        [rowAlternationEnabled]="true"
+        [columnAutoWidth]="true"
+        [dataSource]="listPagos"
+        noDataText="No se encontraron Datos"
+        [showBorders]="true"
+      >
+        <dxo-search-panel
+          [visible]="true"
+          [width]="340"
+          placeholder="Buscar..."
+        ></dxo-search-panel>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager
+          [visible]="true"
+          [showInfo]="true"
+          infoText="Pagina {0} de {1} ({2} datos)"
+          [showPageSizeSelector]="true"
+        >
+        </dxo-pager>
+
+        <dxi-column
+          dataField="idPago"
+          alignment="center"
+          caption="N° pago"
+        ></dxi-column>
+
+        <dxi-column
+          dataField="tipoPago"
+          alignment="center"
+          caption="Tipo Pago"
+        ></dxi-column>
+        <dxi-column
+          dataField="valorPago"
+          alignment="center"
+          caption="Valor Pago"
+          [format]="{ type: 'currency' }"
+        ></dxi-column>
+        <dxi-column
+          dataField="fechaPago"
+          alignment="center"
+          caption="Fecha pago"
+        ></dxi-column>
+
+        <dxi-column
+          dataField="estado"
+          alignment="center"
+          caption="Estado"
+        ></dxi-column>
+      </dx-data-grid>
+    </div>
+  </div>
+</div>
+
+<!-- DIV DETALLE DE PAGOS-->
+<div class="row" *ngIf="pagosDetalle">
+  <div class="col-lg-12">
+    <div class="card shadow">
+      <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h4 class="mb-0" style="color: BLUE">
+              Listado detallado de pagos realizados
+            </h4>
+          </div>
+        </div>
+      </div>
+
+      <dx-data-grid
+        id="gridContainer"
+        [showColumnLines]="false"
+        [showRowLines]="true"
+        [hoverStateEnabled]="true"
+        [rowAlternationEnabled]="true"
+        [columnAutoWidth]="true"
+        [dataSource]="listPagos"
+        noDataText="No se encontraron Datos"
+        [showBorders]="true"
+      >
+        <dxo-search-panel
+          [visible]="true"
+          [width]="340"
+          placeholder="Buscar..."
+        ></dxo-search-panel>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager
+          [visible]="true"
+          [showInfo]="true"
+          infoText="Pagina {0} de {1} ({2} datos)"
+          [showPageSizeSelector]="true"
+        >
+        </dxo-pager>
+
+        <dxi-column
+          dataField="idPago"
+          alignment="center"
+          caption="N° pago"
+        ></dxi-column>
+
+        <dxi-column
+          dataField="tipoPago"
+          alignment="center"
+          caption="Tipo Pago"
+        ></dxi-column>
+
+        <dxi-column
+          dataField="fechaPago"
+          alignment="center"
+          caption="Fecha pago"
+        ></dxi-column>
+
+        <dxi-column
+          dataField="abonoCapital"
+          alignment="center"
+          caption="Abono Capital"
+        ></dxi-column>
+        <dxi-column
+          dataField="abonoInteres"
+          alignment="center"
+          caption="Abono Intereses"
+        ></dxi-column>
+        <dxi-column
+          dataField="saldoInicial"
+          alignment="center"
+          caption="Saldo Inicial"
+        ></dxi-column>
+        <dxi-column
+          dataField="saldoFinal"
+          alignment="center"
+          caption="Saldo Final"
+        ></dxi-column>
+      </dx-data-grid>
+    </div>
+  </div>
+</div>
+
+<!-- DIV AMORTIZACION-->
+<div class="row" *ngIf="amortizacionCredito">
+  <div class="col-lg-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Abono capital</th>
+          <th scope="col">Abono interes</th>
+          <th scope="col">Valor cuota</th>
+          <th scope="col">Saldo</th>
+          <th scope="col">Fecha de pago</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of amor; let i = index">
+          <th scope="row">1</th>
+          <td>{{ item[i] }}</td>
+
+          <td>@mdo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr />
+
+<div class="row" *ngFor="let dato of solicitud">
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img
+                  width="42"
+                  class="rounded-circle"
+                  src="./assets/images/avatars/1.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.nombreSolicitante | uppercase }}
+                  {{ dato.apellidoSolicitante | uppercase }}
+                </div>
+                <div class="widget-subheading">Nombres del Usuario</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.ccSolicitante | uppercase }}
+                </div>
+                <div class="widget-subheading">Documento de identificación</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="badge badge-info">
+                  {{ dato.tipoDoc | uppercase }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">{{ dato.email }}</div>
+                <div class="widget-subheading">Emáil</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">{{ dato.celular }}</div>
+                <div class="widget-subheading">Número celular</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.municipioSolicitante }}
+                </div>
+                <div class="widget-subheading">
+                  Municipio ubicación del solicitante
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div
+                  class="widget-heading"
+                  style="font-size: 20px; color: RED; font-weight: bold"
+                >
+                  <span
+                    *ngIf="
+                      ultimoPagoRealizado.saldoFinal > 0;
+                      else saldoCerrado
+                    "
+                  >
+                    {{ ultimoPagoRealizado.saldoFinal | currency }}</span
+                  >
+                  <ng-template #saldoCerrado>Credito Cancelado</ng-template>
+                </div>
+                <div class="widget-subheading">SALDO PENDIENTE</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  <span
+                    *ngIf="ultimoPagoRealizado.estado == 'Pendiente'"
+                    style="font-size: 20px; color: RED; font-weight: bold"
+                    >{{ ultimoPagoRealizado.estado }}</span
+                  >
+                  <span
+                    *ngIf="ultimoPagoRealizado.estado == 'Completo'"
+                    style="font-size: 20px; color: blue; font-weight: bold"
+                    >{{ ultimoPagoRealizado.estado }}</span
+                  >
+                </div>
+                <div class="widget-subheading">Estado cuota actual</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div
+                  class="widget-heading"
+                  style="font-size: 20px; color: RED; font-weight: bold"
+                >
+                  {{ ultimoPagoRealizado.numCuota }}
+                </div>
+                <div class="widget-subheading">Número Cuota</div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <div class="card-header">Datos del Crédito</div>
+      <ul class="todo-list-wrapper list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.tipoInteres }}
+                </div>
+                <div class="widget-subheading"><i>Tipo de interés</i></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.tipoCredito }}
+                </div>
+                <div class="widget-subheading"><i>Tipo de crédito</i></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ creditoSelec.montoCredito | currency }}
+                </div>
+                <div class="widget-subheading"><i>Monto del crédito</i></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-focus"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ creditoSelec.numCuotas }} meses
+                </div>
+                <div class="widget-subheading">
+                  <div>PLazo del crédito</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-primary"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left flex2">
+                <div class="widget-heading">
+                  {{ creditoSelec.interesMensual }} %
+                </div>
+                <div class="widget-subheading">Interes mensual</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-info"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ creditoSelec.valorCuota | currency }}
+                </div>
+                <div class="widget-subheading">Valor mensual de la cuota</div>
+              </div>
+              <div class="widget-content-right widget-content-actions">
+                <button class="border-0 btn-transition btn btn-outline-success">
+                  <i class="fa fa-check"></i>
+                </button>
+                <button class="border-0 btn-transition btn btn-outline-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="main-card mb-3 card">
+      <div class="card-header">Datos del predio</div>
+      <ul class="todo-list-wrapper list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.numRegistroPredio }}
+                </div>
+                <div class="widget-subheading">
+                  <i>Número de registro del predio</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-warning"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">
+                  {{ dato.certificadoLyT }}
+                </div>
+                <div class="widget-subheading">
+                  <i>Certificado de liberta y tradición</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="todo-indicator bg-focus"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">{{ dato.municipioLyT }}</div>
+                <div class="widget-subheading">
+                  <div>Municipio ubicación del predio</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="list-group-item" *ngIf="tipoUsuario == 'Administrador'">
+          <form [formGroup]="formPago">
+            <div class="todo-indicator bg-focus"></div>
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">
+                    <div>Registrar pago</div>
+                  </div>
+                  <div class="widget-subheading">
+                    <div>Seleccione tipo de pago</div>
+                  </div>
+                  <div class="widget-heading">
+                    <select class="form-control" formControlName="tipoPago">
+                      <option value="Cuota normal">Cuota normal</option>
+                      <option value="Proximas cuotas">Proximas cuotas</option>
+                      <option value="Abono a capital">Abono a capital</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">
+                    <input
+                      formControlName="valorPago"
+                      placeholder="Valor abonado"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-subheading">
+                    <div>Fecha de pago</div>
+                  </div>
+                  <div class="widget-heading">
+                    <input
+                      type="date"
+                      formControlName="fechaPago"
+                      placeholder="fecha de pago"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">
+                    <textarea
+                      class="form-control"
+                      formControlName="descripcion"
+                      placeholder="Agrege comentario si lo desea"
+                      rows="2"
+                      cols="40"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </li>
+      </ul>
+      <div
+        class="d-block text-right card-footer"
+        *ngIf="tipoUsuario == 'Administrador' && dato.estado != 'Cerrada'"
+      >
+        <button
+          (click)="submit()"
+          [disabled]="!formPago.valid"
+          class="btn btn-success btn-lg"
+        >
+          Registrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

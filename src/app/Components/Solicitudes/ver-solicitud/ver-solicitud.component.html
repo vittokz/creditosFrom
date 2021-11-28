@@ -3,7 +3,13 @@
   [subheading]="subheading"
   [icon]="icon"
 ></app-page-title>
-
+<h3>
+  <p style="color: rgb(14, 97, 165); text-align: center">
+    Tiempo restante para brindar respuesta al estado de la solicitud....{{
+      timeLeft
+    }}
+  </p>
+</h3>
 <div class="row" *ngFor="let dato of solicitud">
   <div class="col-lg-4">
     <div class="main-card mb-3 card">
@@ -25,16 +31,6 @@
                   {{ dato.apellidoSolicitante | uppercase }}
                 </div>
                 <div class="widget-subheading">Nombres del solicitante</div>
-              </div>
-              <div class="widget-content-right">
-                <div role="group" class="btn-group-sm btn-group">
-                  <button type="button" class="btn-shadow btn btn-primary">
-                    Hire
-                  </button>
-                  <button type="button" class="btn-shadow btn btn-primary">
-                    Fire
-                  </button>
-                </div>
               </div>
             </div>
           </div>
@@ -101,7 +97,7 @@
               </div>
               <div class="widget-content-right">
                 <div class="badge badge-info">
-                  {{ dato.estado | uppercase }}
+                  <h4>{{ dato.estado | uppercase }}</h4>
                 </div>
               </div>
             </div>
@@ -112,7 +108,7 @@
   </div>
   <div class="col-lg-4">
     <div class="main-card mb-3 card">
-      <div class="card-header">Datos del crédito</div>
+      <div class="card-header">Datos de la solicitud de crédito</div>
       <ul class="todo-list-wrapper list-group list-group-flush">
         <li class="list-group-item">
           <div class="todo-indicator bg-warning"></div>
@@ -236,7 +232,37 @@
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li
+          class="list-group-item"
+          *ngIf="dato.estado == 'Cerrada' && tipoUsuario == 'Cliente'"
+        >
+          <div class="todo-indicator bg-focus"></div>
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-content-right">
+                  <div>
+                    <div class="widget-heading">
+                      <button
+                        (click)="aceptarCredito(dato)"
+                        ngbTooltip="Aceptar Condiciones del crédito"
+                        type="button"
+                        class="btn btn-danger btn-lg"
+                      >
+                        ACEPTAR CRÉDITO
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li
+          class="list-group-item"
+          *ngIf="tipoUsuario == 'Administrador' && dato.estado != 'Cerrada'"
+        >
           <form [formGroup]="formSolicitud">
             <div class="todo-indicator bg-focus"></div>
             <div class="widget-content p-0">
@@ -257,6 +283,11 @@
                       <option value="3">En proceso de Escritura</option>
                       <option value="4">En proceso de Registro</option>
                       <option value="5">Registrado</option>
+                      <option value="6">Negado por CLT</option>
+                      <option value="7">Negado por peritaje</option>
+                      <option value="8">Aprobado por CLT</option>
+                      <option value="9">Aprobado por peritaje</option>
+                      <option value="10">Aprobado por valor diferente</option>
                     </select>
                   </div>
                 </div>
@@ -280,7 +311,10 @@
           </form>
         </li>
       </ul>
-      <div class="d-block text-right card-footer">
+      <div
+        class="d-block text-right card-footer"
+        *ngIf="tipoUsuario == 'Administrador' && dato.estado != 'Cerrada'"
+      >
         <button class="mr-2 btn btn-link btn-sm">Cancelar</button>
         <button
           (click)="submit()"
@@ -305,15 +339,80 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let info of listaEstadosSolicitud">
+        <tr *ngFor="let info of listaEstadosSolicitud; let i = index">
           <td scope="row">
-            <span *ngIf="info.tipoEstado == '1'"
-              >Estudio del Certificado de Libertad y Tradición</span
-            >
-            <span *ngIf="info.tipoEstado == '2'">Estudio Peritaje</span>
-            <span *ngIf="info.tipoEstado == '3'">En proceso de Registro</span>
-            <span *ngIf="info.tipoEstado == '4'">En proceso de Registro</span>
-            <span *ngIf="info.tipoEstado == '5'">Registrado</span>
+            <div *ngIf="i == 0; else templateEstados">
+              <span
+                style="background-color: yellow"
+                *ngIf="info.tipoEstado == '1'"
+                >Estudio del Certificado de Libertad y Tradición</span
+              >
+
+              <span
+                style="background-color: yellow"
+                *ngIf="info.tipoEstado == '2'"
+                >Estudio Peritaje</span
+              >
+              <span
+                style="background-color: yellow"
+                *ngIf="info.tipoEstado == '3'"
+                >En proceso de Escritura</span
+              >
+              <span
+                style="background-color: blue; color: white"
+                *ngIf="info.tipoEstado == '4'"
+                >En proceso de Registro</span
+              >
+              <span
+                style="background-color: green; color: white"
+                *ngIf="info.tipoEstado == '5'"
+                >Registrado</span
+              >
+              <span
+                style="background-color: red; color: white"
+                *ngIf="info.tipoEstado == '6'"
+                >Negado por CLT</span
+              >
+              <span
+                style="background-color: red; color: white"
+                *ngIf="info.tipoEstado == '7'"
+                >Negado por peritaje</span
+              >
+              <span
+                style="background-color: green; color: white"
+                *ngIf="info.tipoEstado == '8'"
+                >Aprobado por CLT</span
+              >
+              <span
+                style="background-color: green; color: white"
+                *ngIf="info.tipoEstado == '9'"
+                >Aprobado por peritaje</span
+              >
+              <span
+                style="background-color: blue; color: white"
+                *ngIf="info.tipoEstado == '10'"
+                >Aprobado por valor diferente</span
+              >
+            </div>
+            <ng-template #templateEstados>
+              <span *ngIf="info.tipoEstado == '1'"
+                >Estudio del Certificado de Libertad y Tradición</span
+              >
+
+              <span *ngIf="info.tipoEstado == '2'">Estudio Peritaje</span>
+              <span *ngIf="info.tipoEstado == '3'"
+                >En proceso de Escritura</span
+              >
+              <span *ngIf="info.tipoEstado == '4'">En proceso de Registro</span>
+              <span *ngIf="info.tipoEstado == '5'">Registrado</span>
+              <span *ngIf="info.tipoEstado == '6'">Negado por CLT</span>
+              <span *ngIf="info.tipoEstado == '7'">Negado por peritaje</span>
+              <span *ngIf="info.tipoEstado == '8'">Aprobado por CLT</span>
+              <span *ngIf="info.tipoEstado == '9'">Aprobado por peritaje</span>
+              <span *ngIf="info.tipoEstado == '10'"
+                >Aprobado por valor diferente</span
+              >
+            </ng-template>
           </td>
           <td>{{ info.descripcion }}</td>
           <td>{{ info.fechaRegistro }}</td>

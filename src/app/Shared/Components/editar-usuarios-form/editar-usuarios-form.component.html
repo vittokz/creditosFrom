@@ -6,7 +6,7 @@
 <div class="main-card mb-3 card">
   <div class="card-body">
     <h5 class="card-title">Datos personales</h5>
-    <form *ngFor="let dato of infoUsuario">
+    <form [formGroup]="formulario">
       <div class="form-row">
         <div class="col-md-3">
           <div class="position-relative form-group">
@@ -14,7 +14,7 @@
             ><input
               type="text"
               class="form-control"
-              value="{{ dato.identidad }}"
+              formControlName="identidad"
             />
           </div>
         </div>
@@ -22,9 +22,9 @@
           <div class="position-relative form-group">
             <label for="exampleEmail11">Nombres</label
             ><input
+              formControlName="nombre"
               type="text"
               class="form-control"
-              value="{{ dato.nombre }}"
               placeholder=""
             />
           </div>
@@ -34,17 +34,20 @@
             <label for="exampleEmail11">Apellidos</label
             ><input
               type="text"
+              formControlName="apellido"
               class="form-control"
-              value="{{ dato.apellido }}"
             />
           </div>
         </div>
         <div class="col-md-3">
           <div class="position-relative form-group">
             <label for="exampleEmail11">Genero</label>
-            <select class="form-control">
+            <select class="form-control" formControlName="genero">
               <option value="Masculino">Masculino</option>
               <option value="Femenino">Femenino</option>
+              <!--   <option selected value="{{ dato.genero }}">
+                {{ dato.genero }}
+              </option> -->
             </select>
           </div>
         </div>
@@ -53,31 +56,23 @@
       <div class="form-row">
         <div class="col-md-3">
           <label for="exampleAddress">Dirección</label>
-          <input
-            type="text"
-            class="form-control"
-            value="{{ dato.direccion }}"
-          />
+          <input formControlName="direccion" type="text" class="form-control" />
         </div>
         <div class="col-md-3">
           <label for="exampleAddress">Teléfono</label>
           <input
+            formControlName="telefono"
             type="number"
             class="form-control"
-            value="{{ dato.telefono }}"
           />
         </div>
         <div class="col-md-3">
           <label for="exampleAddress">Celular</label>
-          <input
-            type="number"
-            class="form-control"
-            value="{{ dato.celular }}"
-          />
+          <input formControlName="celular" type="number" class="form-control" />
         </div>
         <div class="col-md-3">
           <label for="exampleAddress">Emáil</label>
-          <input type="email" class="form-control" value="{{ dato.email }}" />
+          <input formControlName="email" type="email" class="form-control" />
         </div>
       </div>
 
@@ -86,7 +81,7 @@
         <div class="col-md-2">
           <div class="position-relative form-group">
             <label for="exampleCity">Estado</label>
-            <select class="form-control">
+            <select formControlName="estado" class="form-control">
               <option value="Activo">Activo</option>
               <option value="Inactivo">Inactivo</option>
             </select>

@@ -21,6 +21,29 @@ export class SolicitudesService {
       `${this.apiUrl}/solicitudes/${idSolicitud}`
     );
   }
+
+  getSolicitudByIdentidad(identidad: string): Observable<Solicitud[]> {
+    return this.http.get<Solicitud[]>(
+      `${this.apiUrl}/solicitudes/byIdentidad/${identidad}`
+    );
+  }
+
+  addSolicitud(solicitud: Solicitud): Observable<any> {
+    return this.http.post<any>(this.apiUrl + "/solicitudes", solicitud);
+  }
+
+  getSolicitudesByEstado(estado: string): Observable<Solicitud[]> {
+    return this.http.get<Solicitud[]>(
+      `${this.apiUrl}/solicitudes/byEstado/${estado}`
+    );
+  }
+
+  updateEstadoSolicitud(idSolicitud: string): Observable<any> {
+    return this.http.get<Solicitud[]>(
+      `${this.apiUrl}/solicitudes/updateEstados/${idSolicitud}`
+    );
+  }
+
   /**
    * Operaciones con estados de solicitud
    *

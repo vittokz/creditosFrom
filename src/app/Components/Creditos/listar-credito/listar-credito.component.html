@@ -1,1 +1,93 @@
-<p>listar-credito works!</p>
+<app-page-title
+  [heading]="heading"
+  [subheading]="subheading"
+  [icon]="icon"
+></app-page-title>
+<div class="content">
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h4 class="mb-0">Listado de créditos</h4>
+            </div>
+          </div>
+        </div>
+
+        <dx-data-grid
+          id="gridContainer"
+          [showColumnLines]="false"
+          [showRowLines]="true"
+          [hoverStateEnabled]="true"
+          [rowAlternationEnabled]="true"
+          [columnAutoWidth]="true"
+          [dataSource]="listCreditos"
+          noDataText="No se encontraron Datos"
+          [showBorders]="true"
+        >
+          <dxo-search-panel
+            [visible]="true"
+            [width]="440"
+            placeholder="Buscar..."
+          ></dxo-search-panel>
+          <dxo-paging [pageSize]="10"></dxo-paging>
+          <dxo-pager
+            [visible]="true"
+            [showInfo]="true"
+            infoText="Pagina {0} de {1} ({2} datos)"
+            [showPageSizeSelector]="true"
+          >
+          </dxo-pager>
+
+          <dxi-column
+            dataField="numContrato"
+            alignment="center"
+            caption="N° Contrato"
+          ></dxi-column>
+          <dxi-column
+            dataField="idCliente"
+            alignment="center"
+            caption="Identificación"
+          ></dxi-column>
+          <dxi-column
+            dataField="montoCredito"
+            alignment="center"
+            caption="Valor Crédito"
+          ></dxi-column>
+          <dxi-column
+            dataField="numCuotas"
+            alignment="center"
+            caption="Plazo"
+          ></dxi-column>
+  
+
+          <dxi-column
+            dataField="valorCuota"
+            alignment="center"
+            caption="Valor Cuota"
+          ></dxi-column>
+          <dxi-column
+            dataField="estado"
+            alignment="center"
+            caption="Estado"
+          ></dxi-column>
+          <dxi-column caption="Acciones" cellTemplate="acciones"></dxi-column>
+
+          <div *dxTemplate="let d of 'acciones'">
+            <button
+              routerLink="/creditos/proceso-credito/{{ d.data.numContrato }}"
+              class="btn btn-link"
+              type="button"
+              placement="left"
+              ngbTooltip="Opereaciones con el crédito"
+              container="body"
+            >
+              <i class="pe-7s-look"> </i>
+            </button>
+          </div>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

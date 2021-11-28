@@ -30,6 +30,12 @@ export class UsuariosService {
     );
   }
 
+  getUsuarioByTipoDiferenteAdmin(tipoUsuario: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(
+      `${this.apiUrl}/usuarios/usuarioByTipoUsuarioDiferenteAdmin/${tipoUsuario}`
+    );
+  }
+
   getUsuarioByIdentidad(identidad: string): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(
       `${this.apiUrl}/usuarios/usuarioByIdentidad/${identidad}`
@@ -40,5 +46,13 @@ export class UsuariosService {
   updateUsuario(identidad: string, updateUsuario: Usuario): Observable<any> {
     // return this.http.put(`${this.apiUrl}/usuarios/${identidad}`, updateUsuario);
     return this.http.put(this.apiUrl + "/usuarios/" + identidad, updateUsuario);
+  }
+
+  //recuperar contraseña usuario
+  recuperarUsuario(email: string): Observable<Usuario[]> {
+    console.log(email);
+    return this.http.get<Usuario[]>(
+      `${this.apiUrl}/usuarios/usuarioForget/${email}`
+    );
   }
 }

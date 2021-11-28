@@ -65,6 +65,15 @@ import { VerSolicitudComponent } from "./Components/Solicitudes/ver-solicitud/ve
 
 import { AuthGuard } from "../app/Shared/Guards/auth.guard";
 import { ListarSolicitudClientesComponent } from "./Components/Solicitudes/listar-solicitud-clientes/listar-solicitud-clientes.component";
+import { CrearCreditoComponent } from "./Components/Creditos/crear-credito/crear-credito.component";
+import { ListarCreditoComponent } from "./Components/Creditos/listar-credito/listar-credito.component";
+import { ListarCreditosClientesComponent } from "./Components/Creditos/listar-creditos-clientes/listar-creditos-clientes.component";
+import { InversionesAdministradorComponent } from "./Components/Inversiones/inversiones-administrador/inversiones-administrador.component";
+import { InversionesPersonaComponent } from "./Components/Inversiones/inversiones-persona/inversiones-persona.component";
+import { InversionDetalleComponent } from "./Components/Inversiones/inversion-detalle/inversion-detalle.component";
+import { DetalleCreditoComponent } from "./Components/Creditos/proceso-credito/detalle-credito/detalle-credito.component";
+import { InversionesAdmministradorCompletasComponent } from "./Components/Inversiones/inversiones-admministrador-completas/inversiones-admministrador-completas.component";
+import { ListarUsuariosAppComponent } from "./Components/UsuariosApp/listar-usuarios-app/listar-usuarios-app.component";
 const routes: Routes = [
   {
     path: "",
@@ -113,6 +122,50 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
 
+      //Creditos
+      {
+        path: "creditos/crear",
+        component: CrearCreditoComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "creditos/listar",
+        component: ListarCreditoComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "creditos/listar-creditos-clientes",
+        component: ListarCreditosClientesComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "creditos/proceso-credito/:idCredito",
+        component: DetalleCreditoComponent,
+        canActivate: [AuthGuard],
+      },
+      //Inversiones
+
+      {
+        path: "inversiones/listar-administrador",
+        component: InversionesAdministradorComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "inversiones/listar-administrador-completas",
+        component: InversionesAdmministradorCompletasComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "inversiones/listar-persona",
+        component: InversionesPersonaComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "inversiones/detalle-inversion/:idSolicitud",
+        component: InversionDetalleComponent,
+        canActivate: [AuthGuard],
+      },
+
       //Solicitudes
       {
         path: "solicitudes/crear",
@@ -145,12 +198,25 @@ const routes: Routes = [
         component: ListarUsuariosEmpresaComponent,
         canActivate: [AuthGuard],
       },
+      //Usuarios app
+
+      {
+        path: "usuariosApp/listar-usuarios-app",
+        component: ListarUsuariosAppComponent,
+        canActivate: [AuthGuard],
+      },
       //editar usuarios compartido
       {
         path: "compartido/editar/:data",
         component: EditarUsuariosCompartidoComponent,
         canActivate: [AuthGuard],
       },
+      //estadisticas
+      /* {
+        path: "compartido/editar/:data",
+        component: EditarUsuariosCompartidoComponent,
+        canActivate: [AuthGuard],
+      }, */
       // Elements
       {
         path: "elements/buttons-standard",

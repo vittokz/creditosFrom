@@ -1,4 +1,5 @@
-export interface Solicitud {
+export class Solicitud {
+  tipoDoc?: string;
   idSolicitud?: string;
   ccSolicitante?: string;
   nombreSolicitante?: string;
@@ -12,6 +13,7 @@ export interface Solicitud {
   tipoCredito?: string;
   valorCuota?: string;
   interes?: string;
+  tipoInteres?: string;
   numRegistroPredio?: string;
   certificadoLyT?: string;
   dptoLyT?: string;

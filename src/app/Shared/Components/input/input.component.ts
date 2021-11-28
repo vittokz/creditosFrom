@@ -6,6 +6,7 @@ import { LocalidadesService } from "../../Services/localidades.service";
 import { MsnRespuestasService } from "../../Services/msn-respuestas.service";
 import * as respuestasMsn from "../../../Shared/Enum/respuestas-msn";
 import { UsuariosService } from "../../Services/usuarios.service";
+import { AuthService } from "../../Services/auth.service";
 
 @Component({
   selector: "app-input-formulario",
@@ -16,6 +17,7 @@ export class InputComponent implements OnInit {
   listDepartamentos: IDepartamento[];
   listMunicipios: IMunicipio[];
   formulario: FormGroup;
+  datosUsuario: Usuario[];
   nuevo: Usuario = new Usuario();
   @Input() nombreFormulario: string;
   @Input() tipoPersona: string;
@@ -24,12 +26,17 @@ export class InputComponent implements OnInit {
     private departamentos: LocalidadesService,
     private formBuilder: FormBuilder,
     private respuestas: MsnRespuestasService,
-    private usuarioService: UsuariosService
+    private usuarioService: UsuariosService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.getUsuarioLogueado();
     this.getDepartamentos();
     this.crearFormulario();
+  }
+  getUsuarioLogueado() {
+    this.datosUsuario = this.authService.datosUsuario;
   }
   getDepartamentos() {
     this.departamentos.getAllDepartamentos().subscribe((data) => {
@@ -77,8 +84,9 @@ export class InputComponent implements OnInit {
     this.nuevo.municipio = this.formulario.get("municipios").value;
     this.nuevo.tipoUsuario = this.tipoPersona;
     this.nuevo.estado = "Activo";
-    this.nuevo.usuarioRegistra = "vitto";
+    this.nuevo.usuarioRegistra = this.datosUsuario[0].identidad;
     this.usuarioService.addUsuario(this.nuevo).subscribe((resp) => {
+      console.log(resp);
       this.respuestas.mensajeRespuesta(
         respuestasMsn.ERespuestasMensajes.OK,
         respuestasMsn.ERespuestasSwat.SUCCESS
